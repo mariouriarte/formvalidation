@@ -43,6 +43,9 @@ class ProductosProvider {
 
     if (decodeData == null) return [];
 
+    // TODO se debe mostrar mensaje y botar al usuario al login
+    if (decodeData['error'] != null) return [];
+
     decodeData.forEach((key, prod) {
       final prodTemp = ProductoModel.fromJson(prod);
       prodTemp.id = key;

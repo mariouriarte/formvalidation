@@ -11,17 +11,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final productosProvider = new ProductosProvider();
+  // se borra "productosProvider", ya no se utilizará directamente a esta clase,
+  // en cambio se utilizará el "productosBloc"
+  //final productosProvider = new ProductosProvider();
 
   @override
   Widget build(BuildContext context) {
-//    final bloc = Provider.of(context);
+    final productosBloc = Provider.productosBloc(context);
+    productosBloc.cargarProductos();
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: _crearListado(),
+      body: _crearListado(productosBloc),
       floatingActionButton: _crearBoton(context),
     );
   }
@@ -34,35 +37,33 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _crearListado() {
-    return FutureBuilder(
-        future: productosProvider.cargarProductos(),
-        builder: (
-          BuildContext context,
-          AsyncSnapshot<List<ProductoModel>> snapshot,
-        ) {
+  Widget _crearListado(ProductosBloc productosBloc) {
+    return StreamBuilder(
+        stream: productosBloc.productosStream,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<ProductoModel>> snapshot) {
+          // carga los productos
           if (snapshot.hasData) {
             final productos = snapshot.data;
-
             return ListView.builder(
               itemCount: productos.length,
-              itemBuilder: (context, i) => _crearItem(context, productos[i]),
+              itemBuilder: (context, i) =>
+                  _crearItem(context, productosBloc, productos[i]),
             );
           } else {
             return Center(child: CircularProgressIndicator());
           }
-        });
+        }); // unreachable}, ),
   }
 
-  Widget _crearItem(BuildContext context, ProductoModel producto) {
+  Widget _crearItem(BuildContext context, ProductosBloc productosBloc,
+      ProductoModel producto) {
     return Dismissible(
       key: UniqueKey(),
       background: Container(
         color: Colors.red,
       ),
-      onDismissed: (direccion) {
-        productosProvider.borrarProducto(producto.id);
-      },
+      onDismissed: (direccion) => productosBloc.borrarProducto(producto.id),
       child: Card(
         child: InkWell(
           onTap: () =>
@@ -92,10 +93,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-//ListTile(
-//title: Text('${producto.titulo} - ${producto.valor}'),
-//subtitle: Text(producto.id),
-//onTap: () =>
-//Navigator.pushNamed(context, 'producto', arguments: producto),
-//)
