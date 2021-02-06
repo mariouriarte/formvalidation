@@ -14,10 +14,10 @@ void main() async {
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
 
-  runApp(MyApp());
+  runApp(MyApplication());
 }
 
-class MyApp extends StatelessWidget {
+class MyApplication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prefs = new PreferenciasUsuario();

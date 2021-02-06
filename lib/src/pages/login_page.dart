@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:formvalidation/src/bloc/login_bloc.dart';
+// import 'package:formvalidation/src/bloc/login_bloc.dart';
 import 'package:formvalidation/src/bloc/provider.dart';
 import 'package:formvalidation/src/providers/usuario_provider.dart';
 import 'package:formvalidation/src/utils/utils.dart';
@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
               Icon(HumanitarianIcons.email, color: Colors.white, size: 100.0),
               SizedBox(height: 10.0, width: double.infinity),
               Text(
-                'MARIO APP - FLUTTER',
+                'MARIO APP',
                 style: TextStyle(color: Colors.white, fontSize: 25.0),
               ),
               SizedBox(height: 10.0, width: double.infinity),
@@ -122,22 +122,24 @@ class LoginPage extends StatelessWidget {
 
   Widget _crearEmail(LoginBloc bloc) {
     return StreamBuilder(
-        stream: bloc.emailStream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
-                  hintText: 'ejemplo@correo.com',
-                  labelText: 'Correo electrónico',
-                  counterText: snapshot.data,
-                  errorText: snapshot.error,
-                ),
-                onChanged: bloc.changeEmail,
-              ));
-        }); // unreachable}, ),
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+              hintText: 'ejemplo@correo.com',
+              labelText: 'Correo electrónico',
+              counterText: snapshot.data,
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeEmail,
+          ),
+        );
+      },
+    ); // unreachable}, ),
   }
 
   Widget _crearPassword(LoginBloc bloc) {

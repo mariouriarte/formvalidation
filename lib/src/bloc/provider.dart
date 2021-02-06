@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/productos_bloc.dart';
+export 'package:formvalidation/src/bloc/productos_bloc.dart';
 
 import 'package:formvalidation/src/bloc/login_bloc.dart';
 export 'package:formvalidation/src/bloc/login_bloc.dart';
-
-import 'package:formvalidation/src/bloc/productos_bloc.dart';
-export 'package:formvalidation/src/bloc/productos_bloc.dart';
 
 class Provider extends InheritedWidget {
   final loginBloc = new LoginBloc();
@@ -21,9 +19,6 @@ class Provider extends InheritedWidget {
   }
 
   Provider._internal({Key key, Widget child}) : super(key: key, child: child);
-
-//  Provider({Key key, Widget child}) : super(key: key, child: child);
-
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 

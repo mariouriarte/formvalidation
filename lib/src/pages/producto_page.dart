@@ -37,7 +37,7 @@ class _ProductoPageState extends State<ProductoPage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Producto'),
+        title: Text('Crear Producto'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.photo_size_select_actual),
@@ -74,12 +74,12 @@ class _ProductoPageState extends State<ProductoPage> {
       initialValue: producto.titulo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Producto',
+        labelText: 'Nombre',
       ),
       onSaved: (value) => producto.titulo = value,
       validator: (value) {
         if (value.length < 3) {
-          return 'Ingrtese el nombne del producto';
+          return 'Ingrese el nombne del producto';
         } else {
           return null;
         }
